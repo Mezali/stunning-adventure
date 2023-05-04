@@ -13,7 +13,6 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.file_path = ""
 
         # Configuração dos botões
         button1 = QPushButton("Cadastrar", self)
