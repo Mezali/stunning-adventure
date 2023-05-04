@@ -68,14 +68,7 @@ class MainWindow(QWidget):
             tag = row[1]
             enable = row[2]
             grupo = row[3]
-            if grupo == '1T':
-                out = cadFuncionario(nome=nome, tag=tag, enable=enable, grupo1='cafe-manha')
-            elif grupo == '2T':
-                out = cadFuncionario(nome=nome, tag=tag, enable=enable, grupo1='almoco', grupo2='cafe-tarde')
-            elif grupo == '3T':
-                out = cadFuncionario(nome=nome, tag=tag, enable=enable, grupo1='jantar')
-            else:
-                out = cadFuncionario(nome=nome, tag=tag, enable=enable, grupo1=grupo)
+            out = cadFuncionario(nome=nome, tag=tag, enable=enable, grupo1=grupo)
             self.output_text.insertPlainText(f"{out}|{nome} | {tag} | {enable}\n")
             self.output_text.insertPlainText(
                 "--------------------------------------------------------------------------------\n")
