@@ -6,6 +6,7 @@ import urllib3
 from funcs.cad import cadFuncionario
 from funcs.exc import deleteFunc
 from funcs.edit import editFuncionario
+from funcs.checar import checar
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -49,7 +50,7 @@ class MainWindow(QWidget):
         self.show()
 
     def selPlanilha(self):
-        file_path, _ = QFileDialog.getOpenFileName(self, "Selecionar arquivo", "", "Arquivos de texto (*.xlsx)")
+        file_path, _ = QFileDialog.getOpenFileName(self, "Selecionar arquivo", "", "Planilha (*.xlsx)")
 
         if file_path:
             print(f"Caminho do arquivo selecionado: {file_path}")
@@ -68,12 +69,18 @@ class MainWindow(QWidget):
             enable = row[2]
             grupo = row[3]
             out = cadFuncionario(nome=nome, tag=tag, enable=enable, grupo1=grupo)
+            while True:
+                resp = checar()
+                print(resp)
+                QApplication.processEvents()
+                if resp == 'Idle' or resp == 'finished':
+                    break
+
             self.output_text.insertPlainText(f"{out}|{nome} | {tag} | {enable}\n")
             self.output_text.insertPlainText(
                 "--------------------------------------------------------------------------------\n")
             self.output_text.verticalScrollBar().setValue(self.output_text.verticalScrollBar().maximum())
             QApplication.processEvents()
-            time.sleep(0.4)
         self.output_text.insertPlainText("FINALIZADO✅")
 
     def editar(self):
@@ -89,12 +96,17 @@ class MainWindow(QWidget):
             enable = row[2]
             grupo = row[3]
             out = editFuncionario(nome=nome, enable=enable, grupo1=grupo, tag=tag)
+            while True:
+                resp = checar()
+                print(resp)
+                QApplication.processEvents()
+                if resp == 'Idle' or resp == 'finished':
+                    break
             self.output_text.insertPlainText(f"{out}|{nome} | {tag} | {enable}\n")
             self.output_text.insertPlainText(
                 "--------------------------------------------------------------------------------\n")
             self.output_text.verticalScrollBar().setValue(self.output_text.verticalScrollBar().maximum())
             QApplication.processEvents()
-            time.sleep(0.4)
 
         self.output_text.insertPlainText("FINALIZADO✅")
 
@@ -110,12 +122,17 @@ class MainWindow(QWidget):
             tag = row[1]
             enable = row[2]
             out = deleteFunc(nome=nome)
+            while True:
+                resp = checar()
+                print(resp)
+                QApplication.processEvents()
+                if resp == 'Idle' or resp == 'finished':
+                    break
             self.output_text.insertPlainText(f"{out}|{nome} | {tag} | {enable}\n")
             self.output_text.insertPlainText(
                 "--------------------------------------------------------------------------------\n")
             self.output_text.verticalScrollBar().setValue(self.output_text.verticalScrollBar().maximum())
             QApplication.processEvents()
-            time.sleep(0.4)
 
         self.output_text.insertPlainText("FINALIZADO✅")
 
