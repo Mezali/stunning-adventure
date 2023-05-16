@@ -1,7 +1,6 @@
 from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTextEdit, QFileDialog
 import sys
 import openpyxl
-import time
 import urllib3
 from funcs.cad import cadFuncionario
 from funcs.exc import deleteFunc
