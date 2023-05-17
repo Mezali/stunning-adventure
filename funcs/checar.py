@@ -6,8 +6,8 @@ import time
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def checar():
-    url = 'https://192.168.1.99:8090/portaria/v1/bravas/biometric'
+def checar(ip='192.168.1.99'):
+    url = f'https://{ip}:8090/portaria/v1/bravas/biometric'
     payload = {
         "biometric": {
             "command": "status"

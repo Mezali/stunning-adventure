@@ -1,4 +1,5 @@
-from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTextEdit, QFileDialog
+from PyQt5.QtWidgets import QApplication, QLineEdit, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTextEdit, \
+    QFileDialog
 import sys
 import openpyxl
 import urllib3
@@ -25,6 +26,9 @@ class MainWindow(QWidget):
         button3.clicked.connect(self.deletar)
 
         # Configuração da caixa de texto
+        self.input_text = QTextEdit(self)
+        self.input_text.setMaximumHeight(25)
+
         self.output_text = QTextEdit(self)
         self.output_text.setReadOnly(True)
         font = self.output_text.font()
@@ -40,6 +44,8 @@ class MainWindow(QWidget):
         hbox.addWidget(button2)
         hbox.addWidget(button3)
 
+        vbox.addWidget(QLabel("IP do Bravas:"))
+        vbox.addWidget(self.input_text)
         vbox.addLayout(hbox)
         vbox.addWidget(QLabel("Output:"))
         vbox.addWidget(self.output_text)
@@ -61,16 +67,17 @@ class MainWindow(QWidget):
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
         sheet = workbook.worksheets[0]
+        ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
             tag = row[1]
             enable = row[2]
             grupo = row[3]
-            out = cadFuncionario(nome=nome, tag=tag, enable=enable, grupo1=grupo)
+            out = cadFuncionario(ip=ip, nome=nome, tag=tag, enable=enable, grupo1=grupo)
             while True:
-                resp = checar()
-                print(resp)
+                resp = checar(ip)
+               # print(resp)
                 QApplication.processEvents()
                 if resp == 'Idle' or resp == 'finished':
                     break
@@ -88,16 +95,16 @@ class MainWindow(QWidget):
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
         sheet = workbook.worksheets[0]
+        ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
             tag = row[1]
             enable = row[2]
             grupo = row[3]
-            out = editFuncionario(nome=nome, enable=enable, grupo1=grupo, tag=tag)
+            out = editFuncionario(ip=ip, nome=nome, enable=enable, grupo1=grupo, tag=tag)
             while True:
-                resp = checar()
-                print(resp)
+                resp = checar(ip)
                 QApplication.processEvents()
                 if resp == 'Idle' or resp == 'finished':
                     break
@@ -115,6 +122,7 @@ class MainWindow(QWidget):
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
         sheet = workbook.worksheets[0]
+        ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
@@ -122,8 +130,7 @@ class MainWindow(QWidget):
             enable = row[2]
             out = deleteFunc(nome=nome)
             while True:
-                resp = checar()
-                print(resp)
+                resp = checar(ip)
                 QApplication.processEvents()
                 if resp == 'Idle' or resp == 'finished':
                     break

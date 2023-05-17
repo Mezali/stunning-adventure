@@ -1,8 +1,8 @@
 import requests
 
 
-def deleteFunc(nome):
-    url = 'https://192.168.1.99:8090/portaria/v1/bravas/config/user/'
+def deleteFunc(nome, ip='192.168.1.99'):
+    url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
     out = ''
     payload = {
         "config": {
