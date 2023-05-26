@@ -1,7 +1,10 @@
 import requests
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def editFuncionario(nome, enable, tag, grupo1, grupo2='', ip='192.168.1.99'):
+def editFuncionario(nome, grupo1, grupo2, ip='192.168.1.99'):
     url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
     out = ''
     payload = {
@@ -10,21 +13,10 @@ def editFuncionario(nome, enable, tag, grupo1, grupo2='', ip='192.168.1.99'):
             "target": {
                 "name": f"{nome}"
             },
-            "name": f"{nome}",
-            "uuid": f"{tag}",
-            "enabled": f"{enable}",
             "groups": [
                 f"{grupo1}",
-                f"{grupo2}",
-                "portaria"
+                f"{grupo2}"
             ],
-            "tags": [
-                f"{tag}"
-            ],
-            "picture": {
-                "type": "binary",
-                #   "data": f"{foto}"  # base64 encoded data
-            },
             "readers": [
                 "ALL"
             ]
@@ -44,3 +36,5 @@ def editFuncionario(nome, enable, tag, grupo1, grupo2='', ip='192.168.1.99'):
         out += '❌'
         print(response.text)
     return out
+
+

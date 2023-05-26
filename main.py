@@ -77,7 +77,6 @@ class MainWindow(QWidget):
             out = cadFuncionario(ip=ip, nome=nome, tag=tag, enable=enable, grupo1=grupo)
             while True:
                 resp = checar(ip)
-               # print(resp)
                 QApplication.processEvents()
                 if resp == 'Idle' or resp == 'finished':
                     break
@@ -94,21 +93,23 @@ class MainWindow(QWidget):
         self.output_text.insertPlainText("EDITAR📝\n")
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
-        sheet = workbook.worksheets[0]
+        sheet = workbook.worksheets[1]
         ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
-            tag = row[1]
-            enable = row[2]
-            grupo = row[3]
-            out = editFuncionario(ip=ip, nome=nome, enable=enable, grupo1=grupo, tag=tag)
+            #      tag = row[1]
+            #      enable = row[2]
+            grupo = row[1]
+            grupo2 = row[2]
+            print(f'{nome}, {grupo}, {grupo2}')
+            out = editFuncionario(ip=ip, nome=nome, grupo1=grupo, grupo2=grupo2)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
                 if resp == 'Idle' or resp == 'finished':
                     break
-            self.output_text.insertPlainText(f"{out}|{nome} | {tag} | {enable}\n")
+            self.output_text.insertPlainText(f"{out}|{nome} \n")
             self.output_text.insertPlainText(
                 "--------------------------------------------------------------------------------\n")
             self.output_text.verticalScrollBar().setValue(self.output_text.verticalScrollBar().maximum())
