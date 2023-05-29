@@ -73,8 +73,12 @@ class MainWindow(QWidget):
             nome = row[0]
             tag = row[1]
             enable = row[2]
-            grupo = row[3]
-            out = cadFuncionario(ip=ip, nome=nome, tag=tag, enable=enable, grupo1=grupo)
+            grupo1 = row[3]
+            grupo2 = row[4]
+            grupo3 = row[5]
+            grupo4 = row[6]
+            out = cadFuncionario(ip=ip, nome=nome, tag=tag, enable=enable, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
+                                 grupo4=grupo4)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
@@ -93,17 +97,18 @@ class MainWindow(QWidget):
         self.output_text.insertPlainText("EDITAR📝\n")
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
-        sheet = workbook.worksheets[1]
+        sheet = workbook.worksheets[0]
         ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
-            #      tag = row[1]
-            #      enable = row[2]
-            grupo = row[1]
-            grupo2 = row[2]
-            print(f'{nome}, {grupo}, {grupo2}')
-            out = editFuncionario(ip=ip, nome=nome, grupo1=grupo, grupo2=grupo2)
+            enable = row[2]
+            grupo1 = row[3]
+            grupo2 = row[4]
+            grupo3 = row[5]
+            grupo4 = row[6]
+            out = editFuncionario(ip=ip, nome=nome, enable=enable, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
+                                  grupo4=grupo4)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
@@ -129,7 +134,7 @@ class MainWindow(QWidget):
             nome = row[0]
             tag = row[1]
             enable = row[2]
-            out = deleteFunc(nome=nome)
+            out = deleteFunc(ip=ip, nome=nome)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()

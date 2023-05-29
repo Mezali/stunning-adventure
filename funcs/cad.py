@@ -4,7 +4,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def cadFuncionario(nome, tag, enable, grupo1, grupo2='', ip='192.168.1.99'):
+def cadFuncionario(ip, nome, tag, enable, grupo1='', grupo2='', grupo3='', grupo4=''):
     url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
     out = ''
     payload = {
@@ -16,14 +16,12 @@ def cadFuncionario(nome, tag, enable, grupo1, grupo2='', ip='192.168.1.99'):
             "groups": [
                 f"{grupo1}",
                 f"{grupo2}",
+                f"{grupo3}",
+                f"{grupo4}"
             ],
             "tags": [
                 f"{tag}"
             ],
-            "picture": {
-                "type": "binary",
-                #   "data": f"{foto}"  # base64 encoded data
-            },
             "readers": [
                 "ALL"
             ]
