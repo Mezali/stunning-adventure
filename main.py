@@ -10,6 +10,8 @@ from funcs.checar import checar
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+ip = '192.168.1.99'
+
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -26,8 +28,6 @@ class MainWindow(QWidget):
         button3.clicked.connect(self.deletar)
 
         # Configuração da caixa de texto
-        self.input_text = QTextEdit(self)
-        self.input_text.setMaximumHeight(25)
 
         self.output_text = QTextEdit(self)
         self.output_text.setReadOnly(True)
@@ -44,8 +44,6 @@ class MainWindow(QWidget):
         hbox.addWidget(button2)
         hbox.addWidget(button3)
 
-        vbox.addWidget(QLabel("IP do Bravas:"))
-        vbox.addWidget(self.input_text)
         vbox.addLayout(hbox)
         vbox.addWidget(QLabel("Output:"))
         vbox.addWidget(self.output_text)
@@ -67,18 +65,21 @@ class MainWindow(QWidget):
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
         sheet = workbook.worksheets[0]
-        ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
-            tag = row[1]
+            cpf = row[1]
             enable = row[2]
-            grupo1 = row[3]
-            grupo2 = row[4]
-            grupo3 = row[5]
-            grupo4 = row[6]
-            out = cadFuncionario(ip=ip, nome=nome, tag=tag, enable=enable, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
-                                 grupo4=grupo4)
+            tag = row[3]
+            grupo1 = row[4]
+            grupo2 = row[5]
+            grupo3 = row[6]
+            grupo4 = row[7]
+            grupo5 = row[8]
+            grupo6 = row[9]
+            out = cadFuncionario(ip=ip, nome=nome, cpf=cpf, tag=tag, enable=enable, grupo1=grupo1, grupo2=grupo2,
+                                 grupo3=grupo3,
+                                 grupo4=grupo4, grupo5=grupo5, grupo6=grupo6)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
@@ -98,17 +99,19 @@ class MainWindow(QWidget):
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
         sheet = workbook.worksheets[0]
-        ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
+            cpf = row[1]
             enable = row[2]
-            grupo1 = row[3]
-            grupo2 = row[4]
-            grupo3 = row[5]
-            grupo4 = row[6]
-            out = editFuncionario(ip=ip, nome=nome, enable=enable, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
-                                  grupo4=grupo4)
+            grupo1 = row[4]
+            grupo2 = row[5]
+            grupo3 = row[6]
+            grupo4 = row[7]
+            grupo5 = row[8]
+            grupo6 = row[9]
+            out = editFuncionario(ip=ip, nome=nome, cpf=cpf, enable=enable, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
+                                  grupo4=grupo4, grupo5=grupo5, grupo6=grupo6)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
@@ -128,7 +131,6 @@ class MainWindow(QWidget):
         caminho = self.selPlanilha()
         workbook = openpyxl.load_workbook(caminho)
         sheet = workbook.worksheets[0]
-        ip = self.input_text.toPlainText()
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
