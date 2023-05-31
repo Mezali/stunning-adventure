@@ -4,7 +4,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def editFuncionario(ip, nome, cpf, enable, grupo1='', grupo2='', grupo3='', grupo4='', grupo5='', grupo6=''):
+def editFuncionario(ip, nome, cpf, enable, tag, grupo1='', grupo2='', grupo3='', grupo4='', grupo5='', grupo6=''):
     url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
     out = ''
     payload = {
@@ -17,6 +17,9 @@ def editFuncionario(ip, nome, cpf, enable, grupo1='', grupo2='', grupo3='', grup
             "info": {
                 "cpf": f"{cpf}"
             },
+            "tags": [
+                f"{tag}"
+            ],
             "groups": [
                 f"{grupo1}",
                 f"{grupo2}",

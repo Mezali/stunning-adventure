@@ -1,14 +1,17 @@
 import requests
+import urllib3
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def deleteFunc(nome, ip):
+def deleteFunc(rg, ip):
     url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
     out = ''
     payload = {
         "config": {
             "action": "deleteUser",
             "target": {
-                "name": f"{nome}"
+                "uuid": f"{rg}"
             },
             "readers": [
                 "ALL"
@@ -29,3 +32,6 @@ def deleteFunc(nome, ip):
         out += '❌'
         print(response.text)
     return out
+
+
+deleteFunc('1000', '192.168.1.99')
