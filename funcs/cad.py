@@ -4,14 +4,13 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-def cadFuncionario(ip, nome, cpf, rg, tag, enable, grupo1='', grupo2='', grupo3='', grupo4='', grupo5='', grupo6=''):
+def cadFuncionario(ip, nome, cpf, tag, enable, grupo1='', grupo2='', grupo3='', grupo4='', grupo5='', grupo6=''):
     url = f'https://{ip}:8090/portaria/v1/bravas/config/user/'
     out = ''
     payload = {
         "config": {
             "action": "addUser",
             "name": f"{nome}",
-            "uuid": f"{rg}",
             "enabled": f"{enable}",
             "info": {
                 "cpf": f"{cpf}"

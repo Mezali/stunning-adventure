@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QApplication, QLineEdit, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTextEdit, \
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTextEdit, \
     QFileDialog
 import sys
 import openpyxl
@@ -67,18 +67,17 @@ class MainWindow(QWidget):
         sheet = workbook.worksheets[0]
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
-            rg = row[0]
-            nome = row[1]
-            cpf = row[2]
-            enable = row[3]
-            tag = row[4]
-            grupo1 = row[5]
-            grupo2 = row[6]
-            grupo3 = row[7]
-            grupo4 = row[8]
-            grupo5 = row[9]
-            grupo6 = row[10]
-            out = cadFuncionario(ip=ip, rg=rg, nome=nome, cpf=cpf, tag=tag, enable=enable, grupo1=grupo1, grupo2=grupo2,
+            nome = row[0]
+            cpf = row[1]
+            enable = row[2]
+            tag = row[3]
+            grupo1 = row[4]
+            grupo2 = row[5]
+            grupo3 = row[6]
+            grupo4 = row[7]
+            grupo5 = row[8]
+            grupo6 = row[9]
+            out = cadFuncionario(ip=ip, nome=nome, cpf=cpf, tag=tag, enable=enable, grupo1=grupo1, grupo2=grupo2,
                                  grupo3=grupo3,
                                  grupo4=grupo4, grupo5=grupo5, grupo6=grupo6)
             while True:
@@ -102,16 +101,16 @@ class MainWindow(QWidget):
         sheet = workbook.worksheets[0]
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
-            nome = row[1]
-            cpf = row[2]
-            enable = row[3]
-            tag = row[4]
-            grupo1 = row[5]
-            grupo2 = row[6]
-            grupo3 = row[7]
-            grupo4 = row[8]
-            grupo5 = row[9]
-            grupo6 = row[10]
+            nome = row[0]
+            cpf = row[1]
+            enable = row[2]
+            tag = row[3]
+            grupo1 = row[4]
+            grupo2 = row[5]
+            grupo3 = row[6]
+            grupo4 = row[7]
+            grupo5 = row[8]
+            grupo6 = row[9]
             out = editFuncionario(ip=ip, nome=nome, cpf=cpf, tag=tag, enable=enable, grupo1=grupo1,
                                   grupo2=grupo2,
                                   grupo3=grupo3,
@@ -137,10 +136,9 @@ class MainWindow(QWidget):
         sheet = workbook.worksheets[0]
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
-            rg = row[0]
-            nome = row[1]
+            nome = row[0]
             tag = row[3]
-            out = deleteFunc(ip=ip, rg=rg)
+            out = deleteFunc(ip=ip, nome=nome)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
