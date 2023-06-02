@@ -11,7 +11,6 @@ def cadFuncionario(ip, nome, cpf, tag, enable, grupo1='', grupo2='', grupo3='', 
         "config": {
             "action": "addUser",
             "name": f"{nome}",
-            "uuid": f"{tag}",
             "enabled": f"{enable}",
             "info": {
                 "cpf": f"{cpf}"
