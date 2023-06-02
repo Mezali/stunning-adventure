@@ -102,16 +102,15 @@ class MainWindow(QWidget):
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
-            cpf = row[1]
-            enable = row[2]
-            grupo1 = row[4]
-            grupo2 = row[5]
-            grupo3 = row[6]
-            grupo4 = row[7]
-            grupo5 = row[8]
-            grupo6 = row[9]
-            out = editFuncionario(ip=ip, nome=nome, cpf=cpf, enable=enable, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
-                                  grupo4=grupo4, grupo5=grupo5, grupo6=grupo6)
+         #   cpf = row[1]
+         #   enable = row[2]
+            grupo1 = row[1]
+            grupo2 = row[2]
+         #   grupo3 = row[6]
+         #   grupo4 = row[7]
+         #   grupo5 = row[8]
+         #   grupo6 = row[9]
+            out = editFuncionario(ip=ip, nome=nome, grupo1=grupo1, grupo2=grupo2)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
