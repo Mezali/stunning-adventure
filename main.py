@@ -1,16 +1,18 @@
-from PyQt5.QtWidgets import QApplication, QLineEdit, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTextEdit, \
-    QFileDialog
 import sys
+
 import openpyxl
 import urllib3
+from PyQt5.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, QLabel, QTextEdit, \
+    QFileDialog
+
 from funcs.cad import cadFuncionario
-from funcs.exc import deleteFunc
-from funcs.edit import editFuncionario
 from funcs.checar import checar
+from funcs.edit import editFuncionario
+from funcs.exc import deleteFunc
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-ip = '192.168.1.99'
+ip = '192.168.10.4'
 
 
 class MainWindow(QWidget):
@@ -68,7 +70,7 @@ class MainWindow(QWidget):
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
-            cpf = row[1]
+            matricula = row[1]
             enable = row[2]
             tag = row[3]
             grupo1 = row[4]
@@ -77,15 +79,16 @@ class MainWindow(QWidget):
             grupo4 = row[7]
             grupo5 = row[8]
             grupo6 = row[9]
-            out = cadFuncionario(ip=ip, nome=nome, cpf=cpf, tag=tag, enable=enable, grupo1=grupo1, grupo2=grupo2,
+            grupo7 = row[10]
+            out = cadFuncionario(ip=ip, nome=nome, matricula=matricula, tag=tag, enable=enable, grupo1=grupo1,
+                                 grupo2=grupo2,
                                  grupo3=grupo3,
-                                 grupo4=grupo4, grupo5=grupo5, grupo6=grupo6)
+                                 grupo4=grupo4, grupo5=grupo5, grupo6=grupo6, grupo7=grupo7)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
                 if resp == 'Idle' or resp == 'finished':
                     break
-
             self.output_text.insertPlainText(f"{out}|{nome} | {tag} | {enable}\n")
             self.output_text.insertPlainText(
                 "--------------------------------------------------------------------------------\n")
@@ -102,16 +105,16 @@ class MainWindow(QWidget):
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
-            cpf = row[1]
+            # cpf = row[1]
             enable = row[2]
-            grupo1 = row[1]
-            grupo2 = row[2]
+            grupo1 = row[4]
+            grupo2 = row[5]
             grupo3 = row[6]
-            grupo4 = row[7]
-            grupo5 = row[8]
-            grupo6 = row[9]
-            out = editFuncionario(ip=ip, nome=nome, cpf=cpf, enable=enable, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
-                                  grupo4=grupo4, grupo5=grupo5, grupo6=grupo6)
+            # grupo4 = row[7]
+            # grupo5 = row[8]
+            # grupo6 = row[9]
+            out = editFuncionario(ip=ip, nome=nome, grupo1=grupo1, grupo2=grupo2, grupo3=grupo3,
+                                  )
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
@@ -134,15 +137,14 @@ class MainWindow(QWidget):
 
         for row in sheet.iter_rows(min_row=2, values_only=True):
             nome = row[0]
-            tag = row[1]
-            enable = row[2]
-            out = deleteFunc(ip=ip, nome=nome)
+            matricula = row[1]
+            out = deleteFunc(ip=ip, nome=nome, matricula=matricula)
             while True:
                 resp = checar(ip)
                 QApplication.processEvents()
                 if resp == 'Idle' or resp == 'finished':
                     break
-            self.output_text.insertPlainText(f"{out}|{nome} | {tag} | {enable}\n")
+            self.output_text.insertPlainText(f"{out}|{nome} | {matricula}\n")
             self.output_text.insertPlainText(
                 "--------------------------------------------------------------------------------\n")
             self.output_text.verticalScrollBar().setValue(self.output_text.verticalScrollBar().maximum())
